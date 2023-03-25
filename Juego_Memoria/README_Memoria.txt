@@ -3,7 +3,10 @@ Juego de Memoria
 Autor: Julio Cesar Perez Rodriguez
 Matricula: A01705763
 
-Descripcion:
+Actividades:
+ 1. Solucionar Errores Flake8
+ 2. Contar y desplegar el numero de taps
+ 3.Detectar cuando todos los cuadros se han destapado
 
 Errores al inicio del codigo:
 
@@ -36,7 +39,48 @@ memory.py:88:1: F405 'tracer' may be undefined, or defined from star imports: ra
 memory.py:89:1: F405 'onscreenclick' may be undefined, or defined from star imports: random, turtle
 memory.py:91:1: F405 'done' may be undefined, or defined from star imports: random, turtle
 
-Validacion despues de cambios:
+Cambios para correguir los errores:
+from random import shuffle
+from turtle import up, goto, down, color, begin_fill, forward, left, end_fill
+from turtle import stamp, write, update, ontimer, setup, addshape, clear
+from turtle import hideturtle, tracer, onscreenclick, done, shape
 
+Explicacion de los cambios:
+Se agregaron librerias especificas para evitar usar "*" y traer librerias que no se van a ocupar
+
+Validacion despues de cambios en los imports:
+C:\Users\julio\OneDrive\Desktop\Escuela\TC1001S\Proyecto_Equipo4\Juego_Memoria>python -m flake8 memory.py
 
 Cambios:
+def tap(x, y):
+    """Actualice la marca y los mosaicos ocultos según el toque
+    Agregamos una variable global counter para contar los taps
+    e imprimirlos en la consola"""
+    global counter
+    spot = index(x, y)
+    mark = state['mark']
+
+    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+        state['mark'] = spot
+    else:
+        hide[spot] = False
+        hide[mark] = False
+        state['mark'] = None
+        counter += 1
+        print('Taps: ' + str(counter))
+    """Imprime un mensaje cuando todas las casillas esten completas"""
+    if all(not i for i in hide):
+        print('¡Juego terminado!')
+        tracer(True)
+
+Validacion despues de agregar las actividades:
+C:\Users\julio\OneDrive\Desktop\Escuela\TC1001S\Proyecto_Equipo4\Juego_Memoria>python -m flake8 memory.py
+
+Explicacion de los cambios:
+Se agrego la variable counter para contar los taps.
+La linea "counter += 1" nos ayuda a sumar las veces que se hace tap
+Las lines "if all(not i for i in hide):
+        print('¡Juego terminado!')
+        tracer(True)"
+nos ayudan a ver si ya se completo el juego y cuando lo completan se imprime "Juego terminado"
+

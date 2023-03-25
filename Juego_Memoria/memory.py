@@ -7,15 +7,14 @@ Memorama, rompecabezas de números pares.
 
 Actividades:
 
-1. Contar e imprimir cuantos toques ocurren.
-2. Dismimuir el número de mosaicos a una cuadrícula de 4x4.
-3. Detectar cuando se revelan todas las casillas.
-4. Mosaico central de un solo digito.
-5. Usa letras en lugar de mosaicos.
+1. Contar y desplegar el numero de taps
+2.Detectar cuando todos los cuadros se han destapado
 """
 
-from random import *
-from turtle import *
+from random import shuffle
+from turtle import up, goto, down, color, begin_fill, forward, left, end_fill
+from turtle import stamp, write, update, ontimer, setup, addshape, clear
+from turtle import hideturtle, tracer, onscreenclick, done, shape
 
 from freegames import path
 
@@ -23,6 +22,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+counter = 0
 
 
 def square(x, y):
@@ -49,7 +49,10 @@ def xy(count):
 
 
 def tap(x, y):
-    """Actualice la marca y los mosaicos ocultos según el toque."""
+    """Actualice la marca y los mosaicos ocultos según el toque
+    Agregamos una variable global counter para contar los taps
+    e imprimirlos en la consola"""
+    global counter
     spot = index(x, y)
     mark = state['mark']
 
@@ -59,6 +62,12 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        counter += 1
+        print('Taps: ' + str(counter))
+    """Imprime un mensaje cuando todas las casillas esten completas"""
+    if all(not i for i in hide):
+        print('¡Juego terminado!')
+        tracer(True)
 
 
 def draw():
