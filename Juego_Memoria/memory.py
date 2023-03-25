@@ -1,12 +1,17 @@
-"""Memory, puzzle game of number pairs.
+"""
+Autor de los cambios: Julio Cesar Peres Rodriguez
+Fecha: 24-03-2023
+Mateira: TC1001S
 
-Exercises:
+Memorama, rompecabezas de números pares.
 
-1. Count and print how many taps occur.
-2. Decrease the number of tiles to a 4x4 grid.
-3. Detect when all tiles are revealed.
-4. Center single-digit tile.
-5. Use letters instead of tiles.
+Actividades:
+
+1. Contar e imprimir cuantos toques ocurren.
+2. Dismimuir el número de mosaicos a una cuadrícula de 4x4.
+3. Detectar cuando se revelan todas las casillas.
+4. Mosaico central de un solo digito.
+5. Usa letras en lugar de mosaicos.
 """
 
 from random import *
@@ -21,7 +26,7 @@ hide = [True] * 64
 
 
 def square(x, y):
-    """Draw white square with black outline at (x, y)."""
+    """Dibuja un cuadrado blanco con contorno negro en (x, y)."""
     up()
     goto(x, y)
     down()
@@ -34,17 +39,17 @@ def square(x, y):
 
 
 def index(x, y):
-    """Convert (x, y) coordinates to tiles index."""
+    """Convierta las coordenadas (x, y) en índice de mosaicos."""
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
 
 def xy(count):
-    """Convert tiles count to (x, y) coordinates."""
+    """Convierta el recuento de mosaicos en coordenadas (x, y)."""
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
 
 def tap(x, y):
-    """Update mark and hidden tiles based on tap."""
+    """Actualice la marca y los mosaicos ocultos según el toque."""
     spot = index(x, y)
     mark = state['mark']
 
@@ -57,7 +62,7 @@ def tap(x, y):
 
 
 def draw():
-    """Draw image and tiles."""
+    """Dibujar imagen y mosaicos."""
     clear()
     goto(0, 0)
     shape(car)
